@@ -1,6 +1,7 @@
 package com.musalasoft.drones.domain.drone;
 
 import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
+import com.musalasoft.drones.domain.exception.InvalidIdentityException;
 import com.musalasoft.drones.domain.identity.Identity;
 import com.musalasoft.drones.domain.identity.IdentityValidation;
 
@@ -23,14 +24,14 @@ public class Drone {
         setBatteryCapacity(0.0);
     }
 
-    public Drone(Identity identity, String serialNumber) throws InvalidClassAttributeException {
+    public Drone(Identity identity, String serialNumber) throws InvalidClassAttributeException, InvalidIdentityException {
         setIdentity(identity);
         setSerialNumber(serialNumber);
         setWeightLimit(0.0);
         setBatteryCapacity(0.0);
     }
 
-    public Drone(Long id, String serialNumber) throws InvalidClassAttributeException {
+    public Drone(Long id, String serialNumber) throws InvalidClassAttributeException, InvalidIdentityException {
         setIdentity(id);
         setSerialNumber(serialNumber);
         setWeightLimit(0.0);
@@ -41,13 +42,13 @@ public class Drone {
         return identity;
     }
 
-    public void setIdentity(Identity identity) {
+    public void setIdentity(Identity identity) throws InvalidIdentityException {
         new IdentityValidation().validate(identity);
 
         this.identity = identity;
     }
 
-    public void setIdentity(Long id) throws InvalidClassAttributeException {
+    public void setIdentity(Long id) throws InvalidIdentityException {
         this.identity = new Identity(id);
     }
 
@@ -83,7 +84,7 @@ public class Drone {
         return batteryCapacity;
     }
 
-    private void setBatteryCapacity(double batteryCapacity) {
+    private void setBatteryCapacity(double batteryCapacity) throws InvalidClassAttributeException {
         this.batteryCapacity = DroneValidation.validateBatteryCapacity(batteryCapacity);
     }
 

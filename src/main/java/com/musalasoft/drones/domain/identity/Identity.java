@@ -1,6 +1,5 @@
 package com.musalasoft.drones.domain.identity;
 
-import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.exception.InvalidIdentityException;
 
 /**
@@ -9,7 +8,7 @@ import com.musalasoft.drones.domain.exception.InvalidIdentityException;
 public class Identity {
     private Long id;
 
-    public Identity(Long id) throws InvalidClassAttributeException {
+    public Identity(Long id) throws InvalidIdentityException {
         setId(id);
     }
 
