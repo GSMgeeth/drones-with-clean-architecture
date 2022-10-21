@@ -31,11 +31,20 @@ public class DroneValidation implements Validation {
         return batteryCapacity;
     }
 
+    public static double validateLoadedWeight(final double loadedWeight) throws InvalidClassAttributeException {
+        if (loadedWeight < 0.0) {
+            throw new InvalidClassAttributeException("Invalid drone loaded weight.");
+        }
+
+        return loadedWeight;
+    }
+
     @Override
     public <T> void validate(T object) throws InvalidClassAttributeException {
         final Drone drone = (Drone) Objects.requireNonNull(object, "Expected not null Drone, provided null.");
 
         validateSerialNumber(drone.getSerialNumber());
         validateBatteryCapacity(drone.getBatteryCapacity());
+        validateLoadedWeight(drone.getLoadedWeight());
     }
 }
