@@ -28,10 +28,10 @@ public class DroneEntity {
     private String serialNumber;
 
     @Column(name = "drone_model")
-    private DroneModel droneModel;
+    private String droneModel;
 
     @Column(name = "drone_state")
-    private DroneState droneState;
+    private String droneState;
 
     public DroneEntity() {
     }
@@ -70,20 +70,20 @@ public class DroneEntity {
         this.serialNumber = DroneValidation.validateSerialNumber(serialNumber);
     }
 
-    public DroneModel getDroneModel() {
+    public String getDroneModel() {
         return droneModel;
     }
 
     public void setDroneModel(DroneModel droneModel) {
-        this.droneModel = droneModel;
+        this.droneModel = droneModel.getValue();
     }
 
-    public DroneState getDroneState() {
+    public String getDroneState() {
         return droneState;
     }
 
     public void setDroneState(DroneState droneState) {
-        this.droneState = droneState;
+        this.droneState = droneState.getValue();
     }
 
     public static DroneEntity from(final Drone drone) throws NullPointerException {
