@@ -2,7 +2,9 @@ package com.musalasoft.drones.infrastructure.external.drone;
 
 import com.musalasoft.drones.domain.drone.IDroneAPI;
 import com.musalasoft.drones.domain.exception.DroneConnectivityException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DroneConnector implements IDroneAPI {
 
     @Override

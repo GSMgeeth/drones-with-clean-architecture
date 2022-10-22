@@ -10,9 +10,8 @@ public class Drone {
     private String serialNumber;
     private DroneModel droneModel;
     private double weightLimit;
-    private double loadedWeight;
-    private double batteryCapacity;
     private DroneState droneState;
+    private boolean active;
 
     public Drone() {
         setDroneInitialValues();
@@ -23,7 +22,7 @@ public class Drone {
         setDroneInitialValues();
     }
 
-    public Drone(Identity identity, String serialNumber) throws InvalidClassAttributeException, InvalidIdentityException {
+    public Drone(Identity identity, String serialNumber) throws InvalidClassAttributeException, InvalidIdentityException, NullPointerException {
         setIdentity(identity);
         setSerialNumber(serialNumber);
         setDroneInitialValues();
@@ -35,17 +34,33 @@ public class Drone {
         setDroneInitialValues();
     }
 
+    public Drone(Long id, String serialNumber, DroneModel droneModel, DroneState droneState) throws InvalidClassAttributeException, InvalidIdentityException {
+        setIdentity(id);
+        setSerialNumber(serialNumber);
+        setDroneModel(droneModel);
+        setDroneState(droneState);
+        setDroneInitialValues();
+    }
+
+    public Drone(Long id, String serialNumber, DroneModel droneModel, DroneState droneState, boolean active) throws InvalidClassAttributeException, InvalidIdentityException {
+        setIdentity(id);
+        setSerialNumber(serialNumber);
+        setDroneModel(droneModel);
+        setDroneState(droneState);
+        setActive(active);
+        setDroneInitialValues();
+    }
+
     private void setDroneInitialValues() {
         setWeightLimit(0.0);
-        setLoadedWeight(0.0);
-        setBatteryCapacity(0.0);
+        setActive(true);
     }
 
     public Identity getIdentity() {
         return identity;
     }
 
-    public void setIdentity(Identity identity) throws InvalidIdentityException {
+    public void setIdentity(Identity identity) throws InvalidIdentityException, NullPointerException {
         new IdentityValidation().validate(identity);
 
         this.identity = identity;
@@ -83,22 +98,6 @@ public class Drone {
         this.weightLimit = weightLimit;
     }
 
-    public double getLoadedWeight() {
-        return loadedWeight;
-    }
-
-    private void setLoadedWeight(double loadedWeight) throws InvalidClassAttributeException {
-        this.loadedWeight = DroneValidation.validateLoadedWeight(loadedWeight);
-    }
-
-    public double getBatteryCapacity() {
-        return batteryCapacity;
-    }
-
-    private void setBatteryCapacity(double batteryCapacity) throws InvalidClassAttributeException {
-        this.batteryCapacity = DroneValidation.validateBatteryCapacity(batteryCapacity);
-    }
-
     public DroneState getDroneState() {
         return droneState;
     }
@@ -107,12 +106,11 @@ public class Drone {
         this.droneState = droneState;
     }
 
-    // TODO Mark as a scheduler
-    void checkBatteryLevelScheduler(final IDroneAPI droneAPI) {
-        final double batteryPercentage = droneAPI.getBatteryLevelAsPercentage(getSerialNumber());
+    public boolean isActive() {
+        return active;
+    }
 
-        setBatteryCapacity(batteryPercentage);
-
-        // Logs the battery capacity to the console.
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

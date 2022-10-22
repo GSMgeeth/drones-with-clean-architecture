@@ -17,7 +17,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 @Entity
-public class DroneEntity {
+public class DroneORM {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -33,25 +33,36 @@ public class DroneEntity {
     @Column(name = "drone_state")
     private String droneState;
 
-    public DroneEntity() {
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
+    public DroneORM() {
     }
 
-    public DroneEntity(Long id, String serialNumber) {
+    public DroneORM(Long id, String serialNumber) {
         setId(id);
         setSerialNumber(serialNumber);
     }
 
-    public DroneEntity(Long id, String serialNumber, DroneModel droneModel) {
+    public DroneORM(Long id, String serialNumber, DroneModel droneModel) {
         setId(id);
         setSerialNumber(serialNumber);
         setDroneModel(droneModel);
     }
 
-    public DroneEntity(Long id, String serialNumber, DroneModel droneModel, DroneState droneState) {
+    public DroneORM(Long id, String serialNumber, DroneModel droneModel, DroneState droneState) {
         setId(id);
         setSerialNumber(serialNumber);
         setDroneModel(droneModel);
         setDroneState(droneState);
+    }
+
+    public DroneORM(Long id, String serialNumber, DroneModel droneModel, DroneState droneState, boolean active) {
+        setId(id);
+        setSerialNumber(serialNumber);
+        setDroneModel(droneModel);
+        setDroneState(droneState);
+        setActive(active);
     }
 
     public Long getId() {
@@ -78,6 +89,10 @@ public class DroneEntity {
         this.droneModel = droneModel.getValue();
     }
 
+    public void setDroneModel(String droneModel) {
+        this.droneModel = droneModel;
+    }
+
     public String getDroneState() {
         return droneState;
     }
@@ -86,13 +101,39 @@ public class DroneEntity {
         this.droneState = droneState.getValue();
     }
 
-    public static DroneEntity from(final Drone drone) throws NullPointerException {
+    public void setDroneState(String droneState) {
+        this.droneState = droneState;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public static DroneORM from(final Drone drone) throws InvalidClassAttributeException, InvalidIdentityException, NullPointerException {
         new DroneValidation().validate(drone);
 
-        return new DroneEntity(
+        return new DroneORM(
                 IdentityEntity.from(drone.getIdentity()),
                 drone.getSerialNumber(),
                 drone.getDroneModel(),
-                drone.getDroneState());
+                drone.getDroneState(),
+                drone.isActive());
+    }
+
+    public static Drone to(final DroneORM droneORM) throws InvalidClassAttributeException, InvalidIdentityException {
+        return new Drone(
+                droneORM.getId(),
+                droneORM.getSerialNumber(),
+                DroneModel.getKey(droneORM.getDroneModel()),
+                DroneState.getKey(droneORM.getDroneState()),
+                droneORM.isActive());
+    }
+
+    public Drone toDrone() throws InvalidClassAttributeException, InvalidIdentityException {
+        return to(this);
     }
 }

@@ -16,7 +16,7 @@ public class IdentityValidation implements Validation {
     }
 
     @Override
-    public <T> void validate(T object) throws InvalidIdentityException {
+    public <T> void validate(T object) throws InvalidIdentityException, NullPointerException {
         final Identity identity = (Identity) Objects.requireNonNull(object, "Expected not null Identity, provided null.");
 
         validateIdentity(identity.getId());
