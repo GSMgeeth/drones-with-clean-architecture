@@ -11,10 +11,10 @@ public interface IMedicationRepository {
     Medication getMedicationByCode(final String code);
 
     /**
-     * Saves a medication.
+     * Persists a medication in a data store.
      *
      * @param drone The medication object to be saved.
      * @return Saved version of the medication object.
      */
-    Medication save(final Medication drone);
+    Medication persistMedication(final Medication drone);
 }

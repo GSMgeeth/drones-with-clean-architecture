@@ -33,7 +33,7 @@ public class DroneRepository implements IDroneRepository {
     }
 
     @Override
-    public Drone save(final Drone drone) throws InvalidClassAttributeException, InvalidIdentityException, NullPointerException {
+    public Drone persistDrone(final Drone drone) throws InvalidClassAttributeException, InvalidIdentityException, NullPointerException {
         return jpaDroneRepository
                 .save(DroneORM.from(drone))
                 .toDrone();

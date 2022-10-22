@@ -20,10 +20,10 @@ public interface IDroneRepository {
     List<Drone> getAllActiveDrones();
 
     /**
-     * Saves a drone.
+     * Persists a drone in a data store.
      *
      * @param drone The drone object to be saved.
      * @return Saved version of the drone object.
      */
-    Drone save(final Drone drone);
+    Drone persistDrone(final Drone drone);
 }

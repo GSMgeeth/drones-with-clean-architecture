@@ -10,10 +10,9 @@ public class Medication {
     private String name;
     private String code;
     private double weight;
-    private String image;
+    private String imageURL;
 
     public Medication() {
-        setMedicationInitialValues();
     }
 
     public Medication(Identity identity) throws InvalidIdentityException, NullPointerException {
@@ -29,14 +28,12 @@ public class Medication {
         setName(name);
     }
 
-    public Medication(Identity identity, String name, String code) throws InvalidIdentityException, InvalidClassAttributeException, NullPointerException {
-        setIdentity(identity);
+    public Medication(Long id, String name, String code, double weight, String imageURL) throws InvalidIdentityException, InvalidClassAttributeException, NullPointerException {
+        setIdentity(id);
         setName(name);
         setCode(code);
-    }
-
-    private void setMedicationInitialValues() {
-        setWeight(0.0);
+        setWeight(weight);
+        setImageURL(imageURL);
     }
 
     public Identity getIdentity() {
@@ -77,11 +74,11 @@ public class Medication {
         this.weight = MedicationValidation.validateWeight(weight);
     }
 
-    public String getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }
