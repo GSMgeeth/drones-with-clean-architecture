@@ -4,5 +4,5 @@ import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
 
 public interface Validation {
 
-    <T> void validate(T object) throws InvalidClassAttributeException;
+    <T> void validate(final T object) throws InvalidClassAttributeException;
 }

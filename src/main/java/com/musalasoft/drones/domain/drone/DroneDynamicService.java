@@ -1,7 +1,5 @@
 package com.musalasoft.drones.domain.drone;
 
-import com.musalasoft.drones.domain.exception.DroneConnectivityException;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
