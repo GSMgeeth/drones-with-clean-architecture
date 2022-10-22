@@ -45,7 +45,8 @@ public class DroneDynamicService {
             try {
                 final double loadedWeightReceived = droneApi.getLoadedWeightInGrams(drone.getSerialNumber());
                 logger.log(Level.INFO, () ->
-                        format("Drone %s : loaded weight is %s", drone.getSerialNumber(), loadedWeightReceived));
+                        format("Drone %s : loaded weight is %s (max %s)",
+                                drone.getSerialNumber(), loadedWeightReceived, drone.getWeightLimit()));
             } catch (DroneConnectivityException e) {
                 logger.log(Level.WARNING, () ->
                         format("Drone %s connectivity failure. %s", drone.getSerialNumber(), e.getMessage()));

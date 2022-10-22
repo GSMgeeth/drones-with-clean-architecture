@@ -7,7 +7,6 @@ import com.musalasoft.drones.domain.exception.InvalidIdentityException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class DroneRepository implements IDroneRepository {
@@ -30,7 +29,7 @@ public class DroneRepository implements IDroneRepository {
         return jpaDroneRepository
                 .findAllByActiveIsTrue().stream()
                 .map(DroneORM::toDrone)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

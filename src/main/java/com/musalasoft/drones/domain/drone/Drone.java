@@ -48,11 +48,9 @@ public class Drone {
         setDroneModel(droneModel);
         setDroneState(droneState);
         setActive(active);
-        setDroneInitialValues();
     }
 
     private void setDroneInitialValues() {
-        setWeightLimit(0.0);
         setActive(true);
     }
 
