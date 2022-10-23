@@ -1,11 +1,12 @@
 package com.musalasoft.drones.domain.entity.medication;
 
+import com.musalasoft.drones.domain.entity.drone_bucket.DroneBucketItem;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 import com.musalasoft.drones.domain.entity.identity.Identity;
 import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
 
-public class Medication {
+public class Medication implements DroneBucketItem {
     private Identity identity;
     private String name;
     private String code;
@@ -66,6 +67,7 @@ public class Medication {
         this.code = MedicationValidation.validateCode(code);
     }
 
+    @Override
     public double getWeight() {
         return weight;
     }
