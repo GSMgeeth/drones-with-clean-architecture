@@ -1,4 +1,4 @@
-package com.musalasoft.drones.infrastructure.repository.medication;
+package com.musalasoft.drones.infrastructure.database.medication;
 
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;

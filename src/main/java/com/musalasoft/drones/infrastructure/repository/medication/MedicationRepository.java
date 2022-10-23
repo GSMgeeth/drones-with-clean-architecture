@@ -4,6 +4,8 @@ import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeExcept
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 import com.musalasoft.drones.domain.repository.medication.IMedicationRepository;
 import com.musalasoft.drones.domain.entity.medication.Medication;
+import com.musalasoft.drones.infrastructure.database.medication.JPAMedicationRepository;
+import com.musalasoft.drones.infrastructure.database.medication.MedicationORM;
 
 public class MedicationRepository implements IMedicationRepository {
     private final JPAMedicationRepository jpaMedicationRepository;

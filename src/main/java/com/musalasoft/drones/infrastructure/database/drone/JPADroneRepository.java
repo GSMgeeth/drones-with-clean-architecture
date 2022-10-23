@@ -1,4 +1,4 @@
-package com.musalasoft.drones.infrastructure.repository.drone;
+package com.musalasoft.drones.infrastructure.database.drone;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

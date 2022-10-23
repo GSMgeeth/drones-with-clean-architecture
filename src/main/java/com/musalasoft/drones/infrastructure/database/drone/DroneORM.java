@@ -1,4 +1,4 @@
-package com.musalasoft.drones.infrastructure.repository.drone;
+package com.musalasoft.drones.infrastructure.database.drone;
 
 import com.musalasoft.drones.domain.entity.drone.Drone;
 import com.musalasoft.drones.domain.entity.drone.DroneModel;
