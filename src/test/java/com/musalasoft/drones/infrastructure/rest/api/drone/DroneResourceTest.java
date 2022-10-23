@@ -49,6 +49,6 @@ class DroneResourceTest {
         final DroneResponseDTO responseDTO = droneResource.registerDrone(registerDroneRequestDTO).getBody();
 
         assert responseDTO != null;
-        assertThat(responseDTO.getSerialNumber()).isEqualTo(serialNumber);
+        assertThat(responseDTO.serialNumber()).isEqualTo(serialNumber);
     }
 }

@@ -5,6 +5,7 @@ import com.musalasoft.drones.domain.entity.drone.Drone;
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 import com.musalasoft.drones.domain.usecase.exception.AlreadyExistsException;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,8 +21,8 @@ public class RegisterDroneUseCase implements IUseCase<Drone, Drone> {
     }
 
     @Override
-    public Drone execute(final Drone drone) throws AlreadyExistsException {
-        if (droneRepository.getDroneBySerialNumber(drone.getSerialNumber()) != null) {
+    public Drone execute(final Drone drone) throws AlreadyExistsException, NullPointerException {
+        if (droneRepository.getDroneBySerialNumber(Objects.requireNonNull(drone).getSerialNumber()) != null) {
             final String message = format("Drone by the serial number '%s' already exists.", drone.getSerialNumber());
 
             logger.log(Level.WARNING, () -> message);
