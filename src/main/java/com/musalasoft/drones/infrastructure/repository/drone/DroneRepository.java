@@ -17,7 +17,7 @@ public class DroneRepository implements IDroneRepository {
     }
 
     @Override
-    public Drone getDroneBySerialNumber(final String serialNumber) throws InvalidClassAttributeException, InvalidIdentityException {
+    public Drone getDroneBySerialNumber(final String serialNumber) throws InvalidClassAttributeException, InvalidIdentityException, EnumConstantNotPresentException {
         return jpaDroneRepository
                 .findOneBySerialNumber(serialNumber)
                 .map(DroneORM::toDrone)
@@ -25,7 +25,7 @@ public class DroneRepository implements IDroneRepository {
     }
 
     @Override
-    public List<Drone> getAllActiveDrones() throws InvalidClassAttributeException, InvalidIdentityException {
+    public List<Drone> getAllActiveDrones() throws InvalidClassAttributeException, InvalidIdentityException, EnumConstantNotPresentException {
         return jpaDroneRepository
                 .findAllByActiveIsTrue().stream()
                 .map(DroneORM::toDrone)
@@ -33,7 +33,7 @@ public class DroneRepository implements IDroneRepository {
     }
 
     @Override
-    public Drone persistDrone(final Drone drone) throws InvalidClassAttributeException, InvalidIdentityException, NullPointerException {
+    public Drone persistDrone(final Drone drone) throws InvalidClassAttributeException, InvalidIdentityException, EnumConstantNotPresentException, NullPointerException {
         return jpaDroneRepository
                 .save(DroneORM.from(drone))
                 .toDrone();

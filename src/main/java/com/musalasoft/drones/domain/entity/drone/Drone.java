@@ -34,12 +34,11 @@ public class Drone {
         setDroneInitialValues();
     }
 
-    public Drone(Long id, String serialNumber, DroneModel droneModel, DroneState droneState) throws InvalidClassAttributeException, InvalidIdentityException {
-        setIdentity(id);
+    public Drone(String serialNumber, DroneModel droneModel, DroneState droneState, boolean active) throws InvalidClassAttributeException, InvalidIdentityException {
         setSerialNumber(serialNumber);
         setDroneModel(droneModel);
         setDroneState(droneState);
-        setDroneInitialValues();
+        setActive(active);
     }
 
     public Drone(Long id, String serialNumber, DroneModel droneModel, DroneState droneState, boolean active) throws InvalidClassAttributeException, InvalidIdentityException {

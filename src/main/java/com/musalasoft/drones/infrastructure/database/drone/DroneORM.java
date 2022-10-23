@@ -6,8 +6,7 @@ import com.musalasoft.drones.domain.entity.drone.DroneState;
 import com.musalasoft.drones.domain.entity.drone.DroneValidation;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
-import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
-import com.musalasoft.drones.infrastructure.repository.identity.IdentityEntity;
+import com.musalasoft.drones.infrastructure.database.identity.IdentityEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -72,7 +71,7 @@ public class DroneORM {
     }
 
     public void setId(Long id) throws InvalidIdentityException {
-        this.id = IdentityValidation.validateIdentity(id);
+        this.id = id;
     }
 
     public String getSerialNumber() {
@@ -126,7 +125,7 @@ public class DroneORM {
                 drone.isActive());
     }
 
-    public static Drone to(final DroneORM droneORM) throws InvalidClassAttributeException, InvalidIdentityException {
+    public static Drone to(final DroneORM droneORM) throws InvalidClassAttributeException, InvalidIdentityException, EnumConstantNotPresentException {
         return new Drone(
                 droneORM.getId(),
                 droneORM.getSerialNumber(),
@@ -135,7 +134,7 @@ public class DroneORM {
                 droneORM.isActive());
     }
 
-    public Drone toDrone() throws InvalidClassAttributeException, InvalidIdentityException {
+    public Drone toDrone() throws InvalidClassAttributeException, InvalidIdentityException, EnumConstantNotPresentException {
         return to(this);
     }
 }

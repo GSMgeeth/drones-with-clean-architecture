@@ -1,5 +1,7 @@
 package com.musalasoft.drones.domain.entity.drone;
 
+import java.util.Objects;
+
 public enum DroneState {
     IDLE(DroneStateValue.IDLE_VALUE),
     LOADING(DroneStateValue.LOADING_VALUE),
@@ -18,8 +20,9 @@ public enum DroneState {
         return value;
     }
 
-    public static DroneState getKey(final String value) {
-        final String titleCasedValue = value.substring(0, 1).toUpperCase().concat(value.substring(1));
+    public static DroneState getKey(final String value) throws EnumConstantNotPresentException, NullPointerException {
+        final String nonNullValue = Objects.requireNonNull(value);
+        final String titleCasedValue = nonNullValue.substring(0, 1).toUpperCase().concat(nonNullValue.substring(1));
 
         switch (titleCasedValue) {
             case DroneStateValue.IDLE_VALUE -> {
@@ -40,9 +43,7 @@ public enum DroneState {
             case DroneStateValue.RETURNING_VALUE -> {
                 return RETURNING;
             }
-            default -> {
-                return null;
-            }
+            default -> throw new EnumConstantNotPresentException(DroneState.class, nonNullValue);
         }
     }
 

@@ -8,9 +8,8 @@ import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
 import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
 import com.musalasoft.drones.domain.usecase.exception.AlreadyExistsException;
 import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
-import com.musalasoft.drones.infrastructure.external.drone.DroneConnector;
-import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
+import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -34,9 +33,8 @@ class DronesApplicationTests {
     private JPADroneRepository jpaDroneRepository;
 
     @BeforeEach
-    void contextLoads() {
+    void setUp() {
         DroneRepository droneRepository = new DroneRepository(jpaDroneRepository);
-        DroneConnector droneConnector = new DroneConnector();
 
         this.registerDroneUseCase = new RegisterDroneUseCase(droneRepository);
         this.getDroneBySerialNumberUseCase = new GetDroneBySerialNumberUseCase(droneRepository);

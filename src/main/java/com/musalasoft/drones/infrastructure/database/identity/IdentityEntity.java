@@ -1,7 +1,6 @@
-package com.musalasoft.drones.infrastructure.repository.identity;
+package com.musalasoft.drones.infrastructure.database.identity;
 
 import com.musalasoft.drones.domain.entity.identity.Identity;
-import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
 
 public class IdentityEntity {
 
@@ -9,7 +8,9 @@ public class IdentityEntity {
     }
 
     public static Long from(final Identity identity) throws NullPointerException {
-        new IdentityValidation().validate(identity);
+        if (identity == null) {
+            return null;
+        }
 
         return identity.getId();
     }

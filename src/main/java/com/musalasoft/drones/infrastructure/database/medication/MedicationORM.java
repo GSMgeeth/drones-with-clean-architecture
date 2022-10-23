@@ -5,7 +5,7 @@ import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
 import com.musalasoft.drones.domain.entity.medication.Medication;
 import com.musalasoft.drones.domain.entity.medication.MedicationValidation;
-import com.musalasoft.drones.infrastructure.repository.identity.IdentityEntity;
+import com.musalasoft.drones.infrastructure.database.identity.IdentityEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

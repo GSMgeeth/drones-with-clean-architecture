@@ -1,5 +1,7 @@
 package com.musalasoft.drones.domain.entity.drone;
 
+import java.util.Objects;
+
 public enum DroneModel {
     LIGHTWEIGHT(DroneModelValue.LIGHTWEIGHT_VALUE),
     MIDDLEWEIGHT(DroneModelValue.MIDDLEWEIGHT_VALUE),
@@ -16,8 +18,9 @@ public enum DroneModel {
         return value;
     }
 
-    public static DroneModel getKey(final String value) {
-        final String titleCasedValue = value.substring(0, 1).toUpperCase().concat(value.substring(1));
+    public static DroneModel getKey(final String value) throws EnumConstantNotPresentException, NullPointerException {
+        final String nonNullValue = Objects.requireNonNull(value);
+        final String titleCasedValue = nonNullValue.substring(0, 1).toUpperCase().concat(nonNullValue.substring(1));
 
         switch (titleCasedValue) {
             case DroneModelValue.HEAVYWEIGHT_VALUE -> {
@@ -32,9 +35,7 @@ public enum DroneModel {
             case DroneModelValue.LIGHTWEIGHT_VALUE -> {
                 return LIGHTWEIGHT;
             }
-            default -> {
-                return null;
-            }
+            default -> throw new EnumConstantNotPresentException(DroneModel.class, nonNullValue);
         }
     }
 
