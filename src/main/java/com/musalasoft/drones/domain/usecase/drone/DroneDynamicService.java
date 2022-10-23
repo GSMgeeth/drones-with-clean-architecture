@@ -1,4 +1,8 @@
-package com.musalasoft.drones.domain.entity.drone;
+package com.musalasoft.drones.domain.usecase.drone;
+
+import com.musalasoft.drones.domain.entity.drone.DroneConnectivityException;
+import com.musalasoft.drones.domain.entity.drone.IDroneAPI;
+import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

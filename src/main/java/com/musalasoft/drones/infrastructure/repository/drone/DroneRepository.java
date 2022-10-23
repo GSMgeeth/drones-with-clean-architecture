@@ -1,14 +1,12 @@
 package com.musalasoft.drones.infrastructure.repository.drone;
 
 import com.musalasoft.drones.domain.entity.drone.Drone;
-import com.musalasoft.drones.domain.entity.drone.IDroneRepository;
+import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class DroneRepository implements IDroneRepository {
     private final JPADroneRepository jpaDroneRepository;
 

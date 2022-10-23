@@ -1,4 +1,6 @@
-package com.musalasoft.drones.domain.entity.drone;
+package com.musalasoft.drones.domain.repository.drone;
+
+import com.musalasoft.drones.domain.entity.drone.Drone;
 
 import java.util.List;
 

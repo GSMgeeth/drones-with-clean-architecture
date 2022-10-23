@@ -2,7 +2,7 @@ package com.musalasoft.drones.domain.usecase.drone;
 
 import com.musalasoft.drones.domain.usecase.IUseCase;
 import com.musalasoft.drones.domain.entity.drone.Drone;
-import com.musalasoft.drones.domain.entity.drone.IDroneRepository;
+import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 
 public class GetDroneBySerialNumberUseCase implements IUseCase<Drone, String> {
     private final IDroneRepository droneRepository;

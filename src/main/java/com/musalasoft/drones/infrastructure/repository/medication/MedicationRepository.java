@@ -2,11 +2,9 @@ package com.musalasoft.drones.infrastructure.repository.medication;
 
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
-import com.musalasoft.drones.domain.entity.medication.IMedicationRepository;
+import com.musalasoft.drones.domain.repository.medication.IMedicationRepository;
 import com.musalasoft.drones.domain.entity.medication.Medication;
-import org.springframework.stereotype.Component;
 
-@Component
 public class MedicationRepository implements IMedicationRepository {
     private final JPAMedicationRepository jpaMedicationRepository;
 
