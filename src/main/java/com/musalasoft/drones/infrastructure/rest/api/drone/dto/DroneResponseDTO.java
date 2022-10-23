@@ -7,15 +7,20 @@ import com.musalasoft.drones.infrastructure.database.identity.IdentityEntity;
 
 import java.io.Serializable;
 
-public record DroneResponseDTO(Long id, String serialNumber, String droneModel, String droneState, boolean active)
-        implements Serializable {
+public record DroneResponseDTO(Long id, String serialNumber, String droneModel, String droneState, double weightLimit,
+                               boolean active) implements Serializable {
 
     public static DroneResponseDTO from(final Drone drone) throws InvalidClassAttributeException, InvalidIdentityException, NullPointerException {
+        if (drone == null) {
+            return null;
+        }
+
         return new DroneResponseDTO(
                 IdentityEntity.from(drone.getIdentity()),
                 drone.getSerialNumber(),
                 drone.getDroneModel().getValue(),
                 drone.getDroneState().getValue(),
+                drone.getWeightLimit(),
                 drone.isActive());
     }
 }

@@ -5,6 +5,7 @@ import com.musalasoft.drones.domain.entity.drone.Drone;
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,8 +21,8 @@ public class UpdateDroneStateUseCase implements IUseCase<Drone, Drone> {
     }
 
     @Override
-    public Drone execute(final Drone drone) throws NotFoundException {
-        final Drone existingDrone = droneRepository.getDroneBySerialNumber(drone.getSerialNumber());
+    public Drone execute(final Drone drone) throws NotFoundException, NullPointerException {
+        final Drone existingDrone = droneRepository.getDroneBySerialNumber(Objects.requireNonNull(drone).getSerialNumber());
 
         if (existingDrone == null) {
             final String message = format("Drone by the serial number '%s' doesn't exists.", drone.getSerialNumber());

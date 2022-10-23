@@ -2,12 +2,15 @@ package com.musalasoft.drones.infrastructure.rest.api.drone;
 
 import com.musalasoft.drones.domain.entity.drone.DroneModel;
 import com.musalasoft.drones.domain.entity.drone.DroneState;
+import com.musalasoft.drones.domain.usecase.drone.GetDroneBatteryLevelBySerialNumberUseCase;
+import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
+import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
+import com.musalasoft.drones.infrastructure.external.drone.DroneConnector;
 import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.DroneResponseDTO;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.RegisterDroneRequestDTO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -29,10 +33,16 @@ class DroneResourceTest {
     @BeforeEach
     void setUp() {
         DroneRepository droneRepository = new DroneRepository(jpaDroneRepository);
+        DroneConnector droneApi = new DroneConnector();
 
         RegisterDroneUseCase registerDroneUseCase = new RegisterDroneUseCase(droneRepository);
-        DroneController droneController = new DroneController(registerDroneUseCase);
-        this.droneResource = new DroneResource(droneController);
+        GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase = new GetDroneBySerialNumberUseCase(droneRepository);
+        GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase = new GetDroneBatteryLevelBySerialNumberUseCase(droneRepository, droneApi);
+
+        RegisterDroneController registerDroneController = new RegisterDroneController(registerDroneUseCase);
+        GetDroneController getDroneController = new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase);
+
+        this.droneResource = new DroneResource(registerDroneController, getDroneController);
     }
 
     @Test
@@ -50,5 +60,47 @@ class DroneResourceTest {
 
         assert responseDTO != null;
         assertThat(responseDTO.serialNumber()).isEqualTo(serialNumber);
+    }
+
+    @Test
+    @Order(2)
+    void getDroneBySerialNumber() {
+        final String serialNumber = "DRN-BY-SRL";
+        final RegisterDroneRequestDTO registerDroneRequestDTO = new RegisterDroneRequestDTO(
+                serialNumber,
+                DroneModel.HEAVYWEIGHT.getValue(),
+                DroneState.IDLE.getValue(),
+                true
+        );
+
+        droneResource.registerDrone(registerDroneRequestDTO);
+        final DroneResponseDTO responseDTO = droneResource.getDroneBySerialNumber(serialNumber).getBody();
+
+        assert responseDTO != null;
+        assertThat(responseDTO.serialNumber()).isEqualTo(serialNumber);
+    }
+
+    @Test
+    @Order(3)
+    void getDroneBatteryLevelBySerialNumber() {
+        final String serialNumber = "DRN-BTR-BY-SRL";
+        final RegisterDroneRequestDTO registerDroneRequestDTO = new RegisterDroneRequestDTO(
+                serialNumber,
+                DroneModel.HEAVYWEIGHT.getValue(),
+                DroneState.IDLE.getValue(),
+                true
+        );
+
+        droneResource.registerDrone(registerDroneRequestDTO);
+        final Double responseDTO = droneResource.getDroneBatteryLevelBySerialNumber(serialNumber).getBody();
+
+        assert responseDTO != null;
+        assertThat(responseDTO).isEqualTo(0.0);
+    }
+
+    @Test
+    @Order(4)
+    void getNotExistsDroneBatteryLevelBySerialNumberThrowsNotFoundException() {
+        assertThrows(NotFoundException.class, () -> droneResource.getDroneBatteryLevelBySerialNumber("NOT-EXISTS-DRONE"));
     }
 }

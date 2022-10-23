@@ -6,10 +6,10 @@ import com.musalasoft.drones.domain.usecase.exception.AlreadyExistsException;
 
 import java.util.Objects;
 
-public class DroneController {
+public class RegisterDroneController {
     private final RegisterDroneUseCase registerDroneUseCase;
 
-    public DroneController(RegisterDroneUseCase registerDroneUseCase) {
+    public RegisterDroneController(RegisterDroneUseCase registerDroneUseCase) {
         this.registerDroneUseCase = registerDroneUseCase;
     }
 
