@@ -3,9 +3,9 @@ package com.musalasoft.drones.infrastructure.framework;
 import com.musalasoft.drones.domain.drone.DroneDynamicService;
 import com.musalasoft.drones.domain.drone.IDroneAPI;
 import com.musalasoft.drones.domain.drone.IDroneRepository;
-import com.musalasoft.drones.domain.drone.usecase.GetDroneBySerialNumberUseCase;
-import com.musalasoft.drones.domain.drone.usecase.RegisterDroneUseCase;
-import com.musalasoft.drones.domain.drone.usecase.UpdateDroneStateUseCase;
+import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
+import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
+import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

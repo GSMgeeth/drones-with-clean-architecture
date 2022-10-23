@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain.drone.usecase;
+package com.musalasoft.drones.domain.usecase.drone;
 
 import com.musalasoft.drones.domain.IUseCase;
 import com.musalasoft.drones.domain.drone.Drone;
