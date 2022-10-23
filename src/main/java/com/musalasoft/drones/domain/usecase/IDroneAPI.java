@@ -1,4 +1,6 @@
-package com.musalasoft.drones.domain.entity.drone;
+package com.musalasoft.drones.domain.usecase;
+
+import com.musalasoft.drones.domain.usecase.exception.DroneConnectivityException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

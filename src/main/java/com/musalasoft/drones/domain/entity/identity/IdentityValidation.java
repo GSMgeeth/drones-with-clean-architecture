@@ -1,11 +1,11 @@
 package com.musalasoft.drones.domain.entity.identity;
 
-import com.musalasoft.drones.domain.entity.Validation;
+import com.musalasoft.drones.domain.entity.IValidation;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 
 import java.util.Objects;
 
-public class IdentityValidation implements Validation {
+public class IdentityValidation implements IValidation {
 
     public static Long validateIdentity(final Long identity) throws InvalidIdentityException {
         if (identity == null || identity <= 0) {

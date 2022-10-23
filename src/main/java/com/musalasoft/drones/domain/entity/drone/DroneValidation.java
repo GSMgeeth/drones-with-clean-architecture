@@ -1,11 +1,11 @@
 package com.musalasoft.drones.domain.entity.drone;
 
-import com.musalasoft.drones.domain.entity.Validation;
+import com.musalasoft.drones.domain.entity.IValidation;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 
 import java.util.Objects;
 
-public class DroneValidation implements Validation {
+public class DroneValidation implements IValidation {
     public static String validateSerialNumber(final String serialNumber) throws InvalidClassAttributeException {
         if (serialNumber == null || serialNumber.trim().length() == 0 || serialNumber.length() > 100) {
             throw new InvalidClassAttributeException("" +

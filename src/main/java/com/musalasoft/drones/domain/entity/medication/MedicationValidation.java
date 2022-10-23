@@ -1,11 +1,11 @@
 package com.musalasoft.drones.domain.entity.medication;
 
-import com.musalasoft.drones.domain.entity.Validation;
+import com.musalasoft.drones.domain.entity.IValidation;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 
 import java.util.Objects;
 
-public class MedicationValidation implements Validation {
+public class MedicationValidation implements IValidation {
     public static String validateName(final String name) throws InvalidClassAttributeException {
         if (name == null || name.trim().length() == 0) {
             throw new InvalidClassAttributeException("Invalid medication name. Medication name cannot be null or empty.");

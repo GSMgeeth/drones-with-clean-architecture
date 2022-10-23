@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain.entity.drone;
+package com.musalasoft.drones.domain.usecase.exception;
 
 public class DroneConnectivityException extends RuntimeException {
 

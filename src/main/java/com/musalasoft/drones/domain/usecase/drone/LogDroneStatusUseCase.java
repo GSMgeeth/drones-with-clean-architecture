@@ -1,8 +1,9 @@
 package com.musalasoft.drones.domain.usecase.drone;
 
-import com.musalasoft.drones.domain.entity.drone.DroneConnectivityException;
-import com.musalasoft.drones.domain.entity.drone.IDroneAPI;
+import com.musalasoft.drones.domain.usecase.exception.DroneConnectivityException;
+import com.musalasoft.drones.domain.usecase.IDroneAPI;
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
+import com.musalasoft.drones.domain.usecase.IUseCase;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,20 +17,37 @@ import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class DroneDynamicService {
-    private static final Logger logger = Logger.getLogger("Drone Dynamic Service Logger");
+public class LogDroneStatusUseCase implements IUseCase<Void, Void> {
+    private static final Logger logger = Logger.getLogger("Log Drone Status Use Case Logger");
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private final IDroneAPI droneApi;
     private final IDroneRepository droneRepository;
 
-    public DroneDynamicService(IDroneAPI droneApi, IDroneRepository droneRepository) {
+    public LogDroneStatusUseCase(IDroneAPI droneApi, IDroneRepository droneRepository) {
         this.droneApi = droneApi;
         this.droneRepository = droneRepository;
     }
 
-    void droneBatteryLevelLogger() {
+    @Override
+    public Void execute(final Void unused) {
+        // Starts drone battery level logger and sets to stop in 1 hours after started.
+        // If logger needs to be keep running, get the scheduler out of stopScheduler and get rid of the stopScheduler caller below.
+        stopScheduler(
+                scheduler.scheduleAtFixedRate(this::droneBatteryLevelLogger, 10, 60, SECONDS),
+                1, DAYS);
+
+        // Starts drone loaded weight logger and sets to stop in 1 hours after started.
+        // If logger needs to be keep running, get the scheduler out of stopScheduler and get rid of the stopScheduler caller below.
+        stopScheduler(
+                scheduler.scheduleAtFixedRate(this::droneLoadedWeightLogger, 10, 600, SECONDS),
+                8, HOURS);
+
+        return unused;
+    }
+
+    private void droneBatteryLevelLogger() {
         droneRepository.getAllActiveDrones().parallelStream().forEach(drone -> {
             try {
                 final double batteryPercentageReceived = droneApi.getBatteryLevelAsPercentage(drone.getSerialNumber());
@@ -42,7 +60,7 @@ public class DroneDynamicService {
         });
     }
 
-    void droneLoadedWeightLogger() {
+    private void droneLoadedWeightLogger() {
         droneRepository.getAllActiveDrones().parallelStream().forEach(drone -> {
             try {
                 final double loadedWeightReceived = droneApi.getLoadedWeightInGrams(drone.getSerialNumber());
@@ -54,20 +72,6 @@ public class DroneDynamicService {
                         format("Drone %s connectivity failure. %s", drone.getSerialNumber(), e.getMessage()));
             }
         });
-    }
-
-    public void startDroneDynamicStatusUpdater() {
-        // Starts drone battery level logger and sets to stop in 1 hours after started.
-        // If logger needs to be keep running, get the scheduler out of stopScheduler and get rid of the stopScheduler caller below.
-        stopScheduler(
-                scheduler.scheduleAtFixedRate(this::droneBatteryLevelLogger, 10, 60, SECONDS),
-                1, DAYS);
-
-        // Starts drone loaded weight logger and sets to stop in 1 hours after started.
-        // If logger needs to be keep running, get the scheduler out of stopScheduler and get rid of the stopScheduler caller below.
-        stopScheduler(
-                scheduler.scheduleAtFixedRate(this::droneLoadedWeightLogger, 10, 600, SECONDS),
-                8, HOURS);
     }
 
     private void stopScheduler(final ScheduledFuture<?> scheduler, final long cancelIn, final TimeUnit timeUnit) {

@@ -1,7 +1,7 @@
 package com.musalasoft.drones.infrastructure.framework;
 
-import com.musalasoft.drones.domain.usecase.drone.DroneDynamicService;
-import com.musalasoft.drones.domain.entity.drone.IDroneAPI;
+import com.musalasoft.drones.domain.usecase.drone.LogDroneStatusUseCase;
+import com.musalasoft.drones.domain.usecase.IDroneAPI;
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
@@ -17,14 +17,6 @@ import org.springframework.context.annotation.Configuration;
 public class BeanInitializer {
 
     @Bean
-    public DroneDynamicService droneDynamicService(IDroneAPI droneApi, IDroneRepository droneRepository) {
-        final DroneDynamicService droneDynamicService = new DroneDynamicService(droneApi, droneRepository);
-        droneDynamicService.startDroneDynamicStatusUpdater();
-
-        return droneDynamicService;
-    }
-
-    @Bean
     public DroneRepository droneRepository(JPADroneRepository jpaDroneRepository) {
         return new DroneRepository(jpaDroneRepository);
     }
@@ -32,6 +24,14 @@ public class BeanInitializer {
     @Bean
     public MedicationRepository medicationRepository(JPAMedicationRepository jpaMedicationRepository) {
         return new MedicationRepository(jpaMedicationRepository);
+    }
+
+    @Bean
+    public LogDroneStatusUseCase droneDynamicService(IDroneAPI droneApi, IDroneRepository droneRepository) {
+        final LogDroneStatusUseCase logDroneStatusUseCase = new LogDroneStatusUseCase(droneApi, droneRepository);
+        logDroneStatusUseCase.execute(null);
+
+        return logDroneStatusUseCase;
     }
 
     @Bean

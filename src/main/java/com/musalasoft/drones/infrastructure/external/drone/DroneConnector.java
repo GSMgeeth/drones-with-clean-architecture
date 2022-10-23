@@ -1,7 +1,7 @@
 package com.musalasoft.drones.infrastructure.external.drone;
 
-import com.musalasoft.drones.domain.entity.drone.IDroneAPI;
-import com.musalasoft.drones.domain.entity.drone.DroneConnectivityException;
+import com.musalasoft.drones.domain.usecase.IDroneAPI;
+import com.musalasoft.drones.domain.usecase.exception.DroneConnectivityException;
 import org.springframework.stereotype.Component;
 
 @Component
