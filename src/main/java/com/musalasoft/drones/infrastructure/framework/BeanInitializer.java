@@ -5,6 +5,7 @@ import com.musalasoft.drones.domain.repository.medication.IMedicationRepository;
 import com.musalasoft.drones.domain.usecase.IDroneAPI;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBatteryLevelBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
+import com.musalasoft.drones.domain.usecase.drone.GetDronesByState;
 import com.musalasoft.drones.domain.usecase.drone.LogDroneStatusUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
 import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
@@ -14,8 +15,8 @@ import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
 import com.musalasoft.drones.infrastructure.database.medication.JPAMedicationRepository;
 import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
 import com.musalasoft.drones.infrastructure.repository.medication.MedicationRepository;
-import com.musalasoft.drones.infrastructure.rest.api.drone.RegisterDroneController;
 import com.musalasoft.drones.infrastructure.rest.api.drone.GetDroneController;
+import com.musalasoft.drones.infrastructure.rest.api.drone.RegisterDroneController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -56,6 +57,11 @@ public class BeanInitializer {
     }
 
     @Bean
+    public GetDronesByState getDronesByState(IDroneRepository droneRepository) {
+        return new GetDronesByState(droneRepository);
+    }
+
+    @Bean
     public UpdateDroneStateUseCase updateDroneStateUseCase(IDroneRepository droneRepository) {
         return new UpdateDroneStateUseCase(droneRepository);
     }
@@ -76,7 +82,7 @@ public class BeanInitializer {
     }
 
     @Bean
-    public GetDroneController getDroneController(GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase, GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase) {
-        return new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase);
+    public GetDroneController getDroneController(GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase, GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase, GetDronesByState getDronesByState) {
+        return new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByState);
     }
 }

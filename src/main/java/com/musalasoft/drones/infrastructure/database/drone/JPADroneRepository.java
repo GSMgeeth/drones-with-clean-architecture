@@ -11,5 +11,7 @@ public interface JPADroneRepository extends JpaRepository<DroneORM, Long> {
 
     Optional<DroneORM> findOneBySerialNumber(String serialNumber);
 
+    List<DroneORM> findAllByActiveIsTrueAndDroneState(String droneState);
+
     List<DroneORM> findAllByActiveIsTrue();
 }

@@ -4,6 +4,7 @@ import com.musalasoft.drones.domain.entity.drone.DroneModel;
 import com.musalasoft.drones.domain.entity.drone.DroneState;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBatteryLevelBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
+import com.musalasoft.drones.domain.usecase.drone.GetDronesByState;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
 import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
@@ -38,9 +39,10 @@ class DroneResourceTest {
         RegisterDroneUseCase registerDroneUseCase = new RegisterDroneUseCase(droneRepository);
         GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase = new GetDroneBySerialNumberUseCase(droneRepository);
         GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase = new GetDroneBatteryLevelBySerialNumberUseCase(droneRepository, droneApi);
+        GetDronesByState getDronesByState = new GetDronesByState(droneRepository);
 
         RegisterDroneController registerDroneController = new RegisterDroneController(registerDroneUseCase);
-        GetDroneController getDroneController = new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase);
+        GetDroneController getDroneController = new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByState);
 
         this.droneResource = new DroneResource(registerDroneController, getDroneController);
     }

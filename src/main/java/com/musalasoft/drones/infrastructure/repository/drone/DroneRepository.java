@@ -1,9 +1,10 @@
 package com.musalasoft.drones.infrastructure.repository.drone;
 
 import com.musalasoft.drones.domain.entity.drone.Drone;
-import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
+import com.musalasoft.drones.domain.entity.drone.DroneState;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 import com.musalasoft.drones.infrastructure.database.drone.DroneORM;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
 
@@ -22,6 +23,14 @@ public class DroneRepository implements IDroneRepository {
                 .findOneBySerialNumber(serialNumber)
                 .map(DroneORM::toDrone)
                 .orElse(null);
+    }
+
+    @Override
+    public List<Drone> getDronesByState(final DroneState droneState) {
+        return jpaDroneRepository
+                .findAllByActiveIsTrueAndDroneState(droneState.getValue()).stream()
+                .map(DroneORM::toDrone)
+                .toList();
     }
 
     @Override

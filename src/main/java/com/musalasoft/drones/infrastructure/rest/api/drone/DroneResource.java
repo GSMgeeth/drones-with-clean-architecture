@@ -1,5 +1,6 @@
 package com.musalasoft.drones.infrastructure.rest.api.drone;
 
+import com.musalasoft.drones.domain.entity.drone.DroneState;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.DroneResponseDTO;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.RegisterDroneRequestDTO;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/drone")
@@ -34,6 +37,18 @@ public class DroneResource {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(DroneResponseDTO.from(getDroneController.getDroneBySerialNumber(serialNumber)));
+    }
+
+    @GetMapping("/by-state/{droneState}")
+    public ResponseEntity<List<DroneResponseDTO>> getDroneByState(@PathVariable final String droneState) {
+        final List<DroneResponseDTO> droneResponseList = getDroneController
+                .getDronesByState(DroneState.getKey(droneState)).stream()
+                .map(DroneResponseDTO::from)
+                .toList();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(droneResponseList);
     }
 
     @GetMapping("/battery/level/by-serial-number/{serialNumber}")
