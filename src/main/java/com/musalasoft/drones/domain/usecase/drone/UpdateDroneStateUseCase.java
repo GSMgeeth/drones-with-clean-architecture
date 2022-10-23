@@ -1,9 +1,9 @@
 package com.musalasoft.drones.domain.usecase.drone;
 
-import com.musalasoft.drones.domain.IUseCase;
-import com.musalasoft.drones.domain.drone.Drone;
-import com.musalasoft.drones.domain.drone.IDroneRepository;
-import com.musalasoft.drones.domain.exception.NotFoundException;
+import com.musalasoft.drones.domain.usecase.IUseCase;
+import com.musalasoft.drones.domain.entity.drone.Drone;
+import com.musalasoft.drones.domain.entity.drone.IDroneRepository;
+import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

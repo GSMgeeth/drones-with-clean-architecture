@@ -1,13 +1,13 @@
 package com.musalasoft.drones;
 
-import com.musalasoft.drones.domain.drone.Drone;
-import com.musalasoft.drones.domain.drone.DroneModel;
-import com.musalasoft.drones.domain.drone.DroneState;
+import com.musalasoft.drones.domain.entity.drone.Drone;
+import com.musalasoft.drones.domain.entity.drone.DroneModel;
+import com.musalasoft.drones.domain.entity.drone.DroneState;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
 import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
-import com.musalasoft.drones.domain.exception.AlreadyExistsException;
-import com.musalasoft.drones.domain.exception.NotFoundException;
+import com.musalasoft.drones.domain.usecase.exception.AlreadyExistsException;
+import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 import com.musalasoft.drones.infrastructure.external.drone.DroneConnector;
 import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
 import com.musalasoft.drones.infrastructure.repository.drone.JPADroneRepository;

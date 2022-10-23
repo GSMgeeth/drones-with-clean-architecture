@@ -1,10 +1,10 @@
 package com.musalasoft.drones.infrastructure.repository.medication;
 
-import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
-import com.musalasoft.drones.domain.exception.InvalidIdentityException;
-import com.musalasoft.drones.domain.identity.IdentityValidation;
-import com.musalasoft.drones.domain.medication.Medication;
-import com.musalasoft.drones.domain.medication.MedicationValidation;
+import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
+import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
+import com.musalasoft.drones.domain.entity.medication.Medication;
+import com.musalasoft.drones.domain.entity.medication.MedicationValidation;
 import com.musalasoft.drones.infrastructure.repository.identity.IdentityEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,9 +1,9 @@
 package com.musalasoft.drones.infrastructure.repository.medication;
 
-import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
-import com.musalasoft.drones.domain.exception.InvalidIdentityException;
-import com.musalasoft.drones.domain.medication.IMedicationRepository;
-import com.musalasoft.drones.domain.medication.Medication;
+import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
+import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.medication.IMedicationRepository;
+import com.musalasoft.drones.domain.entity.medication.Medication;
 import org.springframework.stereotype.Component;
 
 @Component

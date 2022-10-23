@@ -1,9 +1,9 @@
-package com.musalasoft.drones.domain.medication;
+package com.musalasoft.drones.domain.entity.medication;
 
-import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
-import com.musalasoft.drones.domain.exception.InvalidIdentityException;
-import com.musalasoft.drones.domain.identity.Identity;
-import com.musalasoft.drones.domain.identity.IdentityValidation;
+import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
+import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.identity.Identity;
+import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
 
 public class Medication {
     private Identity identity;

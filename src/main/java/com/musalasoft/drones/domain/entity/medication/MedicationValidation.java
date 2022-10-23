@@ -1,7 +1,7 @@
-package com.musalasoft.drones.domain.medication;
+package com.musalasoft.drones.domain.entity.medication;
 
-import com.musalasoft.drones.domain.Validation;
-import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
+import com.musalasoft.drones.domain.entity.Validation;
+import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 
 import java.util.Objects;
 

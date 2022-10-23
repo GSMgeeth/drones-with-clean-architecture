@@ -1,8 +1,8 @@
 package com.musalasoft.drones.infrastructure.framework;
 
-import com.musalasoft.drones.domain.drone.DroneDynamicService;
-import com.musalasoft.drones.domain.drone.IDroneAPI;
-import com.musalasoft.drones.domain.drone.IDroneRepository;
+import com.musalasoft.drones.domain.entity.drone.DroneDynamicService;
+import com.musalasoft.drones.domain.entity.drone.IDroneAPI;
+import com.musalasoft.drones.domain.entity.drone.IDroneRepository;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
 import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;

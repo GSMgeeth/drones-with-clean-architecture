@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain.drone;
+package com.musalasoft.drones.domain.entity.drone;
 
 public class DroneConnectivityException extends RuntimeException {
 

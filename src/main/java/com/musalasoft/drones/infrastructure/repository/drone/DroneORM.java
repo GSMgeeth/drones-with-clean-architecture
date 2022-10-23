@@ -1,12 +1,12 @@
 package com.musalasoft.drones.infrastructure.repository.drone;
 
-import com.musalasoft.drones.domain.drone.Drone;
-import com.musalasoft.drones.domain.drone.DroneModel;
-import com.musalasoft.drones.domain.drone.DroneState;
-import com.musalasoft.drones.domain.drone.DroneValidation;
-import com.musalasoft.drones.domain.exception.InvalidClassAttributeException;
-import com.musalasoft.drones.domain.exception.InvalidIdentityException;
-import com.musalasoft.drones.domain.identity.IdentityValidation;
+import com.musalasoft.drones.domain.entity.drone.Drone;
+import com.musalasoft.drones.domain.entity.drone.DroneModel;
+import com.musalasoft.drones.domain.entity.drone.DroneState;
+import com.musalasoft.drones.domain.entity.drone.DroneValidation;
+import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
+import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
 import com.musalasoft.drones.infrastructure.repository.identity.IdentityEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,7 +1,7 @@
 package com.musalasoft.drones.infrastructure.repository.identity;
 
-import com.musalasoft.drones.domain.identity.Identity;
-import com.musalasoft.drones.domain.identity.IdentityValidation;
+import com.musalasoft.drones.domain.entity.identity.Identity;
+import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
 
 public class IdentityEntity {
 

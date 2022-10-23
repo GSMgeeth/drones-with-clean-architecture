@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain.exception;
+package com.musalasoft.drones.domain.entity.exception;
 
 public class InvalidIdentityException extends RuntimeException {
 

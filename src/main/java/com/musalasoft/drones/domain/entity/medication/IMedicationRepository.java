@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain.medication;
+package com.musalasoft.drones.domain.entity.medication;
 
 public interface IMedicationRepository {
 

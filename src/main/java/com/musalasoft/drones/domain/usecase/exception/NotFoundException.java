@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain.exception;
+package com.musalasoft.drones.domain.usecase.exception;
 
 public class NotFoundException extends RuntimeException {
 

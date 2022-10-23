@@ -1,4 +1,4 @@
-package com.musalasoft.drones.domain;
+package com.musalasoft.drones.domain.usecase;
 
 public interface IUseCase<T, I> {
 

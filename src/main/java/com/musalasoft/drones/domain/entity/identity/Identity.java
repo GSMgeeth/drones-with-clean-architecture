@@ -1,6 +1,6 @@
-package com.musalasoft.drones.domain.identity;
+package com.musalasoft.drones.domain.entity.identity;
 
-import com.musalasoft.drones.domain.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 
 /**
  * TODO : Identity class should implement an interface.

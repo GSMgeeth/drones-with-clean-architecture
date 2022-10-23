@@ -1,7 +1,7 @@
-package com.musalasoft.drones.domain.identity;
+package com.musalasoft.drones.domain.entity.identity;
 
-import com.musalasoft.drones.domain.Validation;
-import com.musalasoft.drones.domain.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.Validation;
+import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 
 import java.util.Objects;
 
