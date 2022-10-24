@@ -12,8 +12,10 @@ import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
 import com.musalasoft.drones.domain.usecase.medication.GetMedicationByCodeUseCase;
 import com.musalasoft.drones.domain.usecase.medication.RegisterMedicationUseCase;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
+import com.musalasoft.drones.infrastructure.database.drone_bucket.JPADroneBucketRepository;
 import com.musalasoft.drones.infrastructure.database.medication.JPAMedicationRepository;
 import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
+import com.musalasoft.drones.infrastructure.repository.drone_bucket.DroneBucketRepository;
 import com.musalasoft.drones.infrastructure.repository.medication.MedicationRepository;
 import com.musalasoft.drones.infrastructure.rest.api.drone.GetDroneController;
 import com.musalasoft.drones.infrastructure.rest.api.drone.RegisterDroneController;
@@ -26,6 +28,11 @@ public class BeanInitializer {
     @Bean
     public DroneRepository droneRepository(JPADroneRepository jpaDroneRepository) {
         return new DroneRepository(jpaDroneRepository);
+    }
+
+    @Bean
+    public DroneBucketRepository droneBucketRepository(JPADroneBucketRepository jpaDroneBucketRepository) {
+        return new DroneBucketRepository(jpaDroneBucketRepository);
     }
 
     @Bean
