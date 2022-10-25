@@ -5,6 +5,8 @@ import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeExcept
 
 import java.util.Objects;
 
+import static com.musalasoft.drones.domain.entity.drone_bucket.DroneBucketItemValidation.validateWeight;
+
 public class MedicationValidation implements IValidation {
     public static String validateName(final String name) throws InvalidClassAttributeException {
         if (name == null || name.trim().length() == 0) {
@@ -30,14 +32,6 @@ public class MedicationValidation implements IValidation {
         }
 
         return code;
-    }
-
-    public static double validateWeight(final double weight) throws InvalidClassAttributeException {
-        if (weight < 0.0) {
-            throw new InvalidClassAttributeException("Invalid medication weight. Medication weight cannot be a minus value.");
-        }
-
-        return weight;
     }
 
     @Override

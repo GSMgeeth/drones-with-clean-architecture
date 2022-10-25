@@ -1,6 +1,7 @@
 package com.musalasoft.drones.domain.entity.medication;
 
 import com.musalasoft.drones.domain.entity.drone_bucket.DroneBucketItem;
+import com.musalasoft.drones.domain.entity.drone_bucket.DroneBucketItemValidation;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 import com.musalasoft.drones.domain.entity.identity.Identity;
@@ -29,6 +30,11 @@ public class Medication implements DroneBucketItem {
         setName(name);
     }
 
+    public Medication(Long identity, double weight) throws InvalidIdentityException, InvalidClassAttributeException, NullPointerException {
+        setIdentity(identity);
+        setWeight(weight);
+    }
+
     public Medication(Long id, String name, String code, double weight, String imageURL) throws InvalidIdentityException, InvalidClassAttributeException, NullPointerException {
         setIdentity(id);
         setName(name);
@@ -37,6 +43,7 @@ public class Medication implements DroneBucketItem {
         setImageURL(imageURL);
     }
 
+    @Override
     public Identity getIdentity() {
         return identity;
     }
@@ -73,7 +80,7 @@ public class Medication implements DroneBucketItem {
     }
 
     public void setWeight(double weight) throws InvalidClassAttributeException {
-        this.weight = MedicationValidation.validateWeight(weight);
+        this.weight = DroneBucketItemValidation.validateWeight(weight);
     }
 
     public String getImageURL() {

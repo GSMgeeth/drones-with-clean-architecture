@@ -40,9 +40,8 @@ public class DroneORM {
     public DroneORM() {
     }
 
-    public DroneORM(Long id, String serialNumber) {
+    public DroneORM(Long id) {
         setId(id);
-        setSerialNumber(serialNumber);
     }
 
     public DroneORM(Long id, String serialNumber, DroneModel droneModel) {

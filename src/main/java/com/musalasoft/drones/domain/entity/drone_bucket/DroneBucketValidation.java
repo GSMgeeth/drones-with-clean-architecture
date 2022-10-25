@@ -24,5 +24,8 @@ public class DroneBucketValidation implements IValidation {
         final DroneBucket droneBucket = (DroneBucket) Objects.requireNonNull(object, "Expected not null DroneBucket, provided null.");
 
         validateDrone(droneBucket.getDrone());
+
+        final DroneBucketItemValidation droneBucketItemValidation = new DroneBucketItemValidation();
+        droneBucket.getDroneBucketItems().forEach(droneBucketItemValidation::validate);
     }
 }

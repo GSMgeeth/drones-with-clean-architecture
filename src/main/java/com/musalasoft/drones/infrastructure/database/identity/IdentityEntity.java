@@ -7,7 +7,7 @@ public class IdentityEntity {
     private IdentityEntity() {
     }
 
-    public static Long from(final Identity identity) throws NullPointerException {
+    public static Long from(final Identity identity) {
         if (identity == null) {
             return null;
         }

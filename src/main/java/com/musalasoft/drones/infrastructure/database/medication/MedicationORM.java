@@ -1,5 +1,6 @@
 package com.musalasoft.drones.infrastructure.database.medication;
 
+import com.musalasoft.drones.domain.entity.drone_bucket.DroneBucketItemValidation;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
 import com.musalasoft.drones.domain.entity.identity.IdentityValidation;
@@ -76,7 +77,7 @@ public class MedicationORM {
     }
 
     public void setWeight(double weight) throws InvalidClassAttributeException {
-        this.weight = MedicationValidation.validateWeight(weight);
+        this.weight = DroneBucketItemValidation.validateWeight(weight);
     }
 
     public String getImageURL() {

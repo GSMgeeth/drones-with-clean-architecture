@@ -3,6 +3,8 @@ package com.musalasoft.drones.infrastructure.repository.drone_bucket;
 import com.musalasoft.drones.domain.entity.drone.Drone;
 import com.musalasoft.drones.domain.entity.drone_bucket.DroneBucket;
 import com.musalasoft.drones.domain.repository.drone_bucket.IDroneBucketRepository;
+import com.musalasoft.drones.infrastructure.database.drone.DroneORM;
+import com.musalasoft.drones.infrastructure.database.drone_bucket.DroneBucketItemORM;
 import com.musalasoft.drones.infrastructure.database.drone_bucket.JPADroneBucketRepository;
 
 public class DroneBucketRepository implements IDroneBucketRepository {
@@ -14,7 +16,11 @@ public class DroneBucketRepository implements IDroneBucketRepository {
 
     @Override
     public DroneBucket getDroneBucketByDrone(final Drone drone) {
-        return null;
+        final DroneBucket droneBucket = DroneBucketItemORM.to(
+                jpaDroneBucketRepository.findAllByDroneORM(DroneORM.from(drone)));
+        droneBucket.setDrone(drone);
+
+        return droneBucket;
     }
 
     @Override
@@ -23,7 +29,7 @@ public class DroneBucketRepository implements IDroneBucketRepository {
     }
 
     @Override
-    public DroneBucket persistDroneBucket(final DroneBucket drone) {
-        return null;
+    public DroneBucket persistDroneBucket(final DroneBucket droneBucket) {
+        return DroneBucketItemORM.to(jpaDroneBucketRepository.saveAll(DroneBucketItemORM.from(droneBucket)));
     }
 }
