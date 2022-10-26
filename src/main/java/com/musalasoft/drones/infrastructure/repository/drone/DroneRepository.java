@@ -4,6 +4,7 @@ import com.musalasoft.drones.domain.entity.drone.Drone;
 import com.musalasoft.drones.domain.entity.drone.DroneState;
 import com.musalasoft.drones.domain.entity.exception.InvalidClassAttributeException;
 import com.musalasoft.drones.domain.entity.exception.InvalidIdentityException;
+import com.musalasoft.drones.domain.entity.identity.Identity;
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
 import com.musalasoft.drones.infrastructure.database.drone.DroneORM;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
@@ -16,6 +17,14 @@ public class DroneRepository implements IDroneRepository {
 
     public DroneRepository(JPADroneRepository jpaDroneRepository) {
         this.jpaDroneRepository = jpaDroneRepository;
+    }
+
+    @Override
+    public Drone getDroneByIdentity(final Identity identity) {
+        return jpaDroneRepository
+                .findById(Objects.requireNonNull(identity).getId())
+                .map(DroneORM::toDrone)
+                .orElse(null);
     }
 
     @Override

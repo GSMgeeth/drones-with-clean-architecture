@@ -6,7 +6,9 @@ import com.musalasoft.drones.domain.usecase.drone.GetDroneBatteryLevelBySerialNu
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.GetDronesByStateUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
+import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
 import com.musalasoft.drones.domain.usecase.drone_bucket.GetDroneBucketByDroneUseCase;
+import com.musalasoft.drones.domain.usecase.drone_bucket.LoadDroneBucketWithItemsUseCase;
 import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
 import com.musalasoft.drones.infrastructure.database.drone_bucket.JPADroneBucketRepository;
@@ -48,13 +50,18 @@ class DroneResourceTest {
         GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase =
                 new GetDroneBatteryLevelBySerialNumberUseCase(droneRepository, droneApi);
         GetDronesByStateUseCase getDronesByStateUseCase = new GetDronesByStateUseCase(droneRepository);
+        UpdateDroneStateUseCase updateDroneStateUseCase = new UpdateDroneStateUseCase(droneRepository, droneApi);
         GetDroneBucketByDroneUseCase getDroneBucketByDroneUseCase = new GetDroneBucketByDroneUseCase(droneBucketRepository);
+        LoadDroneBucketWithItemsUseCase loadDroneBucketWithItemsUseCase =
+                new LoadDroneBucketWithItemsUseCase(droneBucketRepository, droneRepository);
 
         RegisterDroneController registerDroneController = new RegisterDroneController(registerDroneUseCase);
         GetDroneController getDroneController = new GetDroneController(
-                getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByStateUseCase, getDroneBucketByDroneUseCase);
+                getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByStateUseCase);
+        LoadDroneController loadDroneController = new LoadDroneController(
+                getDroneBucketByDroneUseCase, loadDroneBucketWithItemsUseCase, updateDroneStateUseCase);
 
-        this.droneResource = new DroneResource(registerDroneController, getDroneController);
+        this.droneResource = new DroneResource(registerDroneController, getDroneController, loadDroneController);
     }
 
     @Test

@@ -35,6 +35,8 @@ public class DroneBucketRepository implements IDroneBucketRepository {
 
     @Override
     public DroneBucket persistDroneBucket(final DroneBucket droneBucket) {
+        // TODO fill items (medication, etc.) by id getting from the database to have the item weights.
+
         return DroneBucketItemORM.to(jpaDroneBucketRepository.saveAll(DroneBucketItemORM.from(droneBucket)));
     }
 }

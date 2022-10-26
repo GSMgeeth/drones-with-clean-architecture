@@ -2,10 +2,19 @@ package com.musalasoft.drones.domain.repository.drone;
 
 import com.musalasoft.drones.domain.entity.drone.Drone;
 import com.musalasoft.drones.domain.entity.drone.DroneState;
+import com.musalasoft.drones.domain.entity.identity.Identity;
 
 import java.util.List;
 
 public interface IDroneRepository {
+
+    /**
+     * Gets a drone by identity.
+     *
+     * @param identity Unique identity of the drone.
+     * @return Drone if found by the identity. If not found, returns null.
+     */
+    Drone getDroneByIdentity(final Identity identity);
 
     /**
      * Gets a drone by serial number.

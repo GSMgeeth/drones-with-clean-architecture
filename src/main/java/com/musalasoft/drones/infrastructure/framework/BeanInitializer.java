@@ -11,6 +11,7 @@ import com.musalasoft.drones.domain.usecase.drone.LogDroneStatusUseCase;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
 import com.musalasoft.drones.domain.usecase.drone.UpdateDroneStateUseCase;
 import com.musalasoft.drones.domain.usecase.drone_bucket.GetDroneBucketByDroneUseCase;
+import com.musalasoft.drones.domain.usecase.drone_bucket.LoadDroneBucketWithItemsUseCase;
 import com.musalasoft.drones.domain.usecase.medication.GetMedicationByCodeUseCase;
 import com.musalasoft.drones.domain.usecase.medication.RegisterMedicationUseCase;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
@@ -20,6 +21,7 @@ import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
 import com.musalasoft.drones.infrastructure.repository.drone_bucket.DroneBucketRepository;
 import com.musalasoft.drones.infrastructure.repository.medication.MedicationRepository;
 import com.musalasoft.drones.infrastructure.rest.api.drone.GetDroneController;
+import com.musalasoft.drones.infrastructure.rest.api.drone.LoadDroneController;
 import com.musalasoft.drones.infrastructure.rest.api.drone.RegisterDroneController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,13 +73,18 @@ public class BeanInitializer {
     }
 
     @Bean
-    public UpdateDroneStateUseCase updateDroneStateUseCase(IDroneRepository droneRepository) {
-        return new UpdateDroneStateUseCase(droneRepository);
+    public UpdateDroneStateUseCase updateDroneStateUseCase(IDroneRepository droneRepository, IDroneAPI droneApi) {
+        return new UpdateDroneStateUseCase(droneRepository, droneApi);
     }
 
     @Bean
     public GetDroneBucketByDroneUseCase getDroneBucketByDrone(IDroneBucketRepository droneBucketRepository) {
         return new GetDroneBucketByDroneUseCase(droneBucketRepository);
+    }
+
+    @Bean
+    public LoadDroneBucketWithItemsUseCase loadDroneBucketWithItemsUseCase(IDroneBucketRepository droneBucketRepository, IDroneRepository droneRepository) {
+        return new LoadDroneBucketWithItemsUseCase(droneBucketRepository, droneRepository);
     }
 
     @Bean
@@ -99,8 +106,15 @@ public class BeanInitializer {
     public GetDroneController getDroneController(
             GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase,
             GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase,
-            GetDronesByStateUseCase getDronesByStateUseCase,
-            GetDroneBucketByDroneUseCase getDroneBucketByDroneUseCase) {
-        return new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByStateUseCase, getDroneBucketByDroneUseCase);
+            GetDronesByStateUseCase getDronesByStateUseCase) {
+        return new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByStateUseCase);
+    }
+
+    @Bean
+    public LoadDroneController loadDroneController(
+            GetDroneBucketByDroneUseCase getDroneBucketByDroneUseCase,
+            LoadDroneBucketWithItemsUseCase loadDroneBucketWithItemsUseCase,
+            UpdateDroneStateUseCase updateDroneStateUseCase) {
+        return new LoadDroneController(getDroneBucketByDroneUseCase, loadDroneBucketWithItemsUseCase, updateDroneStateUseCase);
     }
 }
