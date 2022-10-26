@@ -7,10 +7,10 @@ import com.musalasoft.drones.domain.usecase.IUseCase;
 
 import java.util.List;
 
-public class GetDronesByState implements IUseCase<List<Drone>, DroneState> {
+public class GetDronesByStateUseCase implements IUseCase<List<Drone>, DroneState> {
     private final IDroneRepository droneRepository;
 
-    public GetDronesByState(IDroneRepository droneRepository) {
+    public GetDronesByStateUseCase(IDroneRepository droneRepository) {
         this.droneRepository = droneRepository;
     }
 

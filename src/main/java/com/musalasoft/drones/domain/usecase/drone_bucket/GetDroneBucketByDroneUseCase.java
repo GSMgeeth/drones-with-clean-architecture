@@ -9,10 +9,10 @@ import com.musalasoft.drones.domain.usecase.IUseCase;
 
 import java.util.Objects;
 
-public class GetDroneBucketByDrone implements IUseCase<DroneBucket, Drone> {
+public class GetDroneBucketByDroneUseCase implements IUseCase<DroneBucket, Drone> {
     private final IDroneBucketRepository droneBucketRepository;
 
-    public GetDroneBucketByDrone(IDroneBucketRepository droneBucketRepository) {
+    public GetDroneBucketByDroneUseCase(IDroneBucketRepository droneBucketRepository) {
         this.droneBucketRepository = droneBucketRepository;
     }
 
