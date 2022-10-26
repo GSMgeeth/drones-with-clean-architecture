@@ -1,9 +1,9 @@
 package com.musalasoft.drones.domain.usecase.drone;
 
-import com.musalasoft.drones.domain.usecase.exception.DroneConnectivityException;
-import com.musalasoft.drones.domain.usecase.IDroneAPI;
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
+import com.musalasoft.drones.domain.usecase.IDroneAPI;
 import com.musalasoft.drones.domain.usecase.IUseCase;
+import com.musalasoft.drones.domain.usecase.exception.DroneConnectivityException;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -67,6 +67,12 @@ public class LogDroneStatusUseCase implements IUseCase<Void, Void> {
                 logger.log(Level.INFO, () ->
                         format("Drone %s : loaded weight is %s (max %s)",
                                 drone.getSerialNumber(), loadedWeightReceived, drone.getWeightLimit()));
+
+                if (loadedWeightReceived > drone.getWeightLimit()) {
+                    logger.log(Level.WARNING, () ->
+                            format("Drone %s : exceeded weight limit. Please unload the extra weight.",
+                                    drone.getSerialNumber()));
+                }
             } catch (DroneConnectivityException e) {
                 logger.log(Level.WARNING, () ->
                         format("Drone %s connectivity failure. %s", drone.getSerialNumber(), e.getMessage()));
