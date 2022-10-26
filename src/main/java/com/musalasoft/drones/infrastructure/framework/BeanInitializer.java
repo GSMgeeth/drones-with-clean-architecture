@@ -1,6 +1,7 @@
 package com.musalasoft.drones.infrastructure.framework;
 
 import com.musalasoft.drones.domain.repository.drone.IDroneRepository;
+import com.musalasoft.drones.domain.repository.drone_bucket.IDroneBucketRepository;
 import com.musalasoft.drones.domain.repository.medication.IMedicationRepository;
 import com.musalasoft.drones.domain.usecase.IDroneAPI;
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBatteryLevelBySerialNumberUseCase;
@@ -75,8 +76,8 @@ public class BeanInitializer {
     }
 
     @Bean
-    public GetDroneBucketByDrone getDroneBucketByDrone() {
-        return new GetDroneBucketByDrone();
+    public GetDroneBucketByDrone getDroneBucketByDrone(IDroneBucketRepository droneBucketRepository) {
+        return new GetDroneBucketByDrone(droneBucketRepository);
     }
 
     @Bean
@@ -95,7 +96,11 @@ public class BeanInitializer {
     }
 
     @Bean
-    public GetDroneController getDroneController(GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase, GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase, GetDronesByState getDronesByState) {
-        return new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByState);
+    public GetDroneController getDroneController(
+            GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase,
+            GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase,
+            GetDronesByState getDronesByState,
+            GetDroneBucketByDrone getDroneBucketByDrone) {
+        return new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByState, getDroneBucketByDrone);
     }
 }

@@ -9,6 +9,7 @@ import com.musalasoft.drones.infrastructure.database.drone.DroneORM;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DroneRepository implements IDroneRepository {
     private final JPADroneRepository jpaDroneRepository;
@@ -26,9 +27,10 @@ public class DroneRepository implements IDroneRepository {
     }
 
     @Override
-    public List<Drone> getDronesByState(final DroneState droneState) {
+    public List<Drone> getDronesByState(final DroneState droneState) throws NullPointerException {
         return jpaDroneRepository
-                .findAllByActiveIsTrueAndDroneState(droneState.getValue()).stream()
+                .findAllByActiveIsTrueAndDroneState(Objects.requireNonNull(
+                        droneState, "Expected not null drone state. provided null.").getValue()).stream()
                 .map(DroneORM::toDrone)
                 .toList();
     }

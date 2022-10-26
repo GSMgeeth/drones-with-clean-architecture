@@ -17,6 +17,10 @@ public class Drone {
         setDroneInitialValues();
     }
 
+    public Drone(Long id) throws InvalidIdentityException {
+        setIdentity(id);
+    }
+
     public Drone(String serialNumber) throws InvalidClassAttributeException {
         setSerialNumber(serialNumber);
         setDroneInitialValues();

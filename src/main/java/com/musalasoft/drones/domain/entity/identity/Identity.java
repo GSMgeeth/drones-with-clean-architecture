@@ -19,4 +19,9 @@ public class Identity {
     private void setId(Long id) throws InvalidIdentityException {
         this.id = IdentityValidation.validateIdentity(id);
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
 }

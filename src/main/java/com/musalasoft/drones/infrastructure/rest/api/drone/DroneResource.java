@@ -1,6 +1,6 @@
 package com.musalasoft.drones.infrastructure.rest.api.drone;
 
-import com.musalasoft.drones.domain.entity.drone.DroneState;
+import com.musalasoft.drones.infrastructure.rest.api.drone.dto.DroneBucketResponseDTO;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.DroneResponseDTO;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.RegisterDroneRequestDTO;
 import org.springframework.http.HttpStatus;
@@ -41,10 +41,8 @@ public class DroneResource {
 
     @GetMapping("/by-state/{droneState}")
     public ResponseEntity<List<DroneResponseDTO>> getDroneByState(@PathVariable final String droneState) {
-        final List<DroneResponseDTO> droneResponseList = getDroneController
-                .getDronesByState(DroneState.getKey(droneState)).stream()
-                .map(DroneResponseDTO::from)
-                .toList();
+        final List<DroneResponseDTO> droneResponseList = getDroneController.getDronesByState(droneState).stream()
+                .map(DroneResponseDTO::from).toList();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -56,5 +54,12 @@ public class DroneResource {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(getDroneController.getDroneBatteryLevelBySerialNumber(serialNumber));
+    }
+
+    @GetMapping("/bucket/by-id/{droneId}")
+    public ResponseEntity<DroneBucketResponseDTO> getDroneBucketById(@PathVariable final Long droneId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(DroneBucketResponseDTO.from(getDroneController.getDroneBucketByDrone(droneId)));
     }
 }

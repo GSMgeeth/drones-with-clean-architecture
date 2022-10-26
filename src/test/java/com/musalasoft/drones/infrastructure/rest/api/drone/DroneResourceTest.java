@@ -6,10 +6,13 @@ import com.musalasoft.drones.domain.usecase.drone.GetDroneBatteryLevelBySerialNu
 import com.musalasoft.drones.domain.usecase.drone.GetDroneBySerialNumberUseCase;
 import com.musalasoft.drones.domain.usecase.drone.GetDronesByState;
 import com.musalasoft.drones.domain.usecase.drone.RegisterDroneUseCase;
+import com.musalasoft.drones.domain.usecase.drone_bucket.GetDroneBucketByDrone;
 import com.musalasoft.drones.domain.usecase.exception.NotFoundException;
 import com.musalasoft.drones.infrastructure.database.drone.JPADroneRepository;
+import com.musalasoft.drones.infrastructure.database.drone_bucket.JPADroneBucketRepository;
 import com.musalasoft.drones.infrastructure.external.drone.DroneConnector;
 import com.musalasoft.drones.infrastructure.repository.drone.DroneRepository;
+import com.musalasoft.drones.infrastructure.repository.drone_bucket.DroneBucketRepository;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.DroneResponseDTO;
 import com.musalasoft.drones.infrastructure.rest.api.drone.dto.RegisterDroneRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,18 +34,25 @@ class DroneResourceTest {
     @Autowired
     private JPADroneRepository jpaDroneRepository;
 
+    @Autowired
+    private JPADroneBucketRepository jpaDroneBucketRepository;
+
     @BeforeEach
     void setUp() {
         DroneRepository droneRepository = new DroneRepository(jpaDroneRepository);
+        DroneBucketRepository droneBucketRepository = new DroneBucketRepository(jpaDroneBucketRepository);
         DroneConnector droneApi = new DroneConnector();
 
         RegisterDroneUseCase registerDroneUseCase = new RegisterDroneUseCase(droneRepository);
         GetDroneBySerialNumberUseCase getDroneBySerialNumberUseCase = new GetDroneBySerialNumberUseCase(droneRepository);
-        GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase = new GetDroneBatteryLevelBySerialNumberUseCase(droneRepository, droneApi);
+        GetDroneBatteryLevelBySerialNumberUseCase getDroneBatteryLevelBySerialNumberUseCase =
+                new GetDroneBatteryLevelBySerialNumberUseCase(droneRepository, droneApi);
         GetDronesByState getDronesByState = new GetDronesByState(droneRepository);
+        GetDroneBucketByDrone getDroneBucketByDrone = new GetDroneBucketByDrone(droneBucketRepository);
 
         RegisterDroneController registerDroneController = new RegisterDroneController(registerDroneUseCase);
-        GetDroneController getDroneController = new GetDroneController(getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByState);
+        GetDroneController getDroneController = new GetDroneController(
+                getDroneBySerialNumberUseCase, getDroneBatteryLevelBySerialNumberUseCase, getDronesByState, getDroneBucketByDrone);
 
         this.droneResource = new DroneResource(registerDroneController, getDroneController);
     }
