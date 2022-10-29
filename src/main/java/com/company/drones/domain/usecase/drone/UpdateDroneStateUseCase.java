@@ -36,6 +36,27 @@ public class UpdateDroneStateUseCase implements IUseCase<Drone, Drone> {
             throw new NotFoundException(message);
         }
 
+        validateDroneBatteryLevelForState(drone, existingDrone);
+        validateDroneLoadedWeightForState(drone, existingDrone);
+
+        existingDrone.setDroneState(drone.getDroneState());
+
+        return droneRepository.persistDrone(existingDrone);
+    }
+
+    private void validateDroneLoadedWeightForState(final Drone drone, final Drone existingDrone) {
+        final double loadedWeight = droneApi.getLoadedWeightInGrams(existingDrone.getSerialNumber());
+
+        if (drone.getDroneState().equals(DroneState.DELIVERING) && loadedWeight > existingDrone.getWeightLimit()) {
+            final String message = format("Drone %s loaded weight is greater than it's weight limit to be in the %s state.",
+                    drone.getSerialNumber(), drone.getDroneState());
+
+            logger.log(Level.WARNING, () -> message);
+            throw new OperationPreconditionsFailedException(message);
+        }
+    }
+
+    private void validateDroneBatteryLevelForState(final Drone drone, final Drone existingDrone) {
         final double batteryPercentage = droneApi.getBatteryLevelAsPercentage(existingDrone.getSerialNumber());
 
         if ((drone.getDroneState().equals(DroneState.LOADING) || drone.getDroneState().equals(DroneState.DELIVERING)) &&
@@ -46,19 +67,5 @@ public class UpdateDroneStateUseCase implements IUseCase<Drone, Drone> {
             logger.log(Level.WARNING, () -> message);
             throw new OperationPreconditionsFailedException(message);
         }
-
-        final double loadedWeight = droneApi.getLoadedWeightInGrams(existingDrone.getSerialNumber());
-
-        if (drone.getDroneState().equals(DroneState.DELIVERING) && loadedWeight > existingDrone.getWeightLimit()) {
-            final String message = format("Drone %s loaded weight is greater than it's weight limit to be in the %s state.",
-                    drone.getSerialNumber(), drone.getDroneState());
-
-            logger.log(Level.WARNING, () -> message);
-            throw new OperationPreconditionsFailedException(message);
-        }
-
-        existingDrone.setDroneState(drone.getDroneState());
-
-        return droneRepository.persistDrone(existingDrone);
     }
 }

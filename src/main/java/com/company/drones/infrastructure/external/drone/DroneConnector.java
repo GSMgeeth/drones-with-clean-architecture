@@ -9,11 +9,11 @@ public class DroneConnector implements IDroneAPI {
 
     @Override
     public double getBatteryLevelAsPercentage(final String serialNumber) throws DroneConnectivityException {
-        return 0;
+        return 75.0;
     }
 
     @Override
     public double getLoadedWeightInGrams(final String serialNumber) throws DroneConnectivityException {
-        return 0;
+        return 20.0;
     }
 }

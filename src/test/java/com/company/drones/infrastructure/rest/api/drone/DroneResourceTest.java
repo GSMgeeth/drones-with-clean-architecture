@@ -114,7 +114,7 @@ class DroneResourceTest {
         final Double responseDTO = droneResource.getDroneBatteryLevelBySerialNumber(serialNumber).getBody();
 
         assert responseDTO != null;
-        assertThat(responseDTO).isEqualTo(0.0);
+        assertThat(responseDTO).isEqualTo(75.0);
     }
 
     @Test
